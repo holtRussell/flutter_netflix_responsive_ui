@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_netflix_responsive_ui/cubits/cubits.dart';
-import 'package:flutter_netflix_responsive_ui/screens/screens.dart';
+import 'package:flutter_netflix_responsive_ui/cubits/app_bar/app_bar_cubit.dart';
+import 'package:flutter_netflix_responsive_ui/screens/home_screen.dart';
 import 'package:flutter_netflix_responsive_ui/widgets/widgets.dart';
 
 class NavScreen extends StatefulWidget {
+  const NavScreen({Key key}) : super(key: key);
+
   @override
   _NavScreenState createState() => _NavScreenState();
 }
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    HomeScreen(key: PageStorageKey('homeScreen')),
+    HomeScreen(
+      // todo -- Research Keys to maintain state of page
+
+      key: PageStorageKey('homeScreen'),
+    ),
     Scaffold(),
     Scaffold(),
     Scaffold(),
@@ -32,20 +38,29 @@ class _NavScreenState extends State<NavScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider<AppBarCubit>(
-        create: (_) => AppBarCubit(),
-        child: _screens[_currentIndex],
-      ),
-      bottomNavigationBar: !Responsive.isDesktop(context)
-          ? BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
+          // todo -- Note -- (_) makes passed context private
+          // todo -- b/c it won't be used
+
+          create: (_) => AppBarCubit(),
+          child: _screens[_currentIndex]),
+      bottomNavigationBar: Responsive.isDesktop(context)
+          ? null
+          : BottomNavigationBar(
               backgroundColor: Colors.black,
+              type: BottomNavigationBarType.fixed,
               items: _icons
-                  .map((title, icon) => MapEntry(
+                  .map(
+                    (title, icon) => MapEntry(
                       title,
                       BottomNavigationBarItem(
-                        icon: Icon(icon, size: 30.0),
+                        icon: Icon(
+                          icon,
+                          size: 30.0,
+                        ),
                         title: Text(title),
-                      )))
+                      ),
+                    ),
+                  )
                   .values
                   .toList(),
               currentIndex: _currentIndex,
@@ -54,8 +69,7 @@ class _NavScreenState extends State<NavScreen> {
               unselectedItemColor: Colors.grey,
               unselectedFontSize: 11.0,
               onTap: (index) => setState(() => _currentIndex = index),
-            )
-          : null,
+            ),
     );
   }
 }

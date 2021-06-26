@@ -1,5 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_netflix_responsive_ui/assets.dart';
 import 'package:flutter_netflix_responsive_ui/cubits/cubits.dart';
 import 'package:flutter_netflix_responsive_ui/data/data.dart';
 import 'package:flutter_netflix_responsive_ui/widgets/widgets.dart';
@@ -12,38 +13,55 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // We don't need this because of Cubits
+  // double _scrollOffset = 0.0;
   ScrollController _scrollController;
 
   @override
   void initState() {
+    // TODO: Manages Scroll % for CustomAppBar Opacity
     _scrollController = ScrollController()
       ..addListener(() {
         context.bloc<AppBarCubit>().setOffset(_scrollController.offset);
+        // Removed setState because Cubit manages state
+        // setState(() {
+        //   _scrollOffset = _scrollController.offset;
+        // });
       });
+
     super.initState();
   }
 
   @override
   void dispose() {
+    // TODO: implement dispose
     _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // todo -- Look into MediaQuery for scalability
     final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.cast),
         backgroundColor: Colors.grey[850],
-        child: const Icon(Icons.cast),
-        onPressed: () => print('Cast'),
+        onPressed: () {
+          print('Cast');
+        },
       ),
+      // todo -- Look into PreferredSize Function
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 50.0),
+        // todo -- CustomAppBar, Not AppBar
         child: BlocBuilder<AppBarCubit, double>(
           builder: (context, scrollOffset) {
-            return CustomAppBar(scrollOffset: scrollOffset);
+            return CustomAppBar(
+              scrollOffset: scrollOffset,
+            );
           },
         ),
       ),
@@ -53,41 +71,31 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: ContentHeader(featuredContent: sintelContent),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 20.0),
-            sliver: SliverToBoxAdapter(
-              child: Previews(
-                key: PageStorageKey('previews'),
-                title: 'Previews',
-                contentList: previews,
-              ),
-            ),
+          SliverToBoxAdapter(
+            child: Previews(title: 'Previews', contentList: previews),
           ),
           SliverToBoxAdapter(
             child: ContentList(
-              key: PageStorageKey('myList'),
               title: 'My List',
               contentList: myList,
             ),
           ),
           SliverToBoxAdapter(
             child: ContentList(
-              key: PageStorageKey('originals'),
               title: 'Netflix Originals',
               contentList: originals,
               isOriginals: true,
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.only(bottom: 20.0),
+            padding: EdgeInsets.only(bottom: 20.0),
             sliver: SliverToBoxAdapter(
               child: ContentList(
-                key: PageStorageKey('trending'),
                 title: 'Trending',
                 contentList: trending,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
