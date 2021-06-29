@@ -5,7 +5,9 @@ import 'package:flutter_netflix_responsive_ui/assets.dart';
 class CustomAppBar extends StatefulWidget {
   // Todo -- Learn THis trick -- ScrollOffset Opacity
   final double scrollOffset;
-  const CustomAppBar({Key key, this.scrollOffset}) : super(key: key);
+  final Function onPressed;
+  const CustomAppBar({Key key, this.scrollOffset, this.onPressed})
+      : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -72,7 +74,9 @@ class CustomAppBarMobile extends StatelessWidget {
 }
 
 class CustomAppBarDesktop extends StatelessWidget {
-  const CustomAppBarDesktop({Key key}) : super(key: key);
+  final Function(int) onPressed;
+  const CustomAppBarDesktop({Key key, @required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +119,8 @@ class CustomAppBarDesktop extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                onPressed: () => print('Search'),
+                /// Note, you spent a lot of time w/o the  () =>
+                onPressed: () => onPressed(1),
                 icon: Icon(
                   Icons.search,
                   size: 28.0,

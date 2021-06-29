@@ -54,17 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       // todo -- Look into PreferredSize Function
-      appBar: PreferredSize(
-        preferredSize: Size(screenSize.width, 50.0),
-        // todo -- CustomAppBar, Not AppBar
-        child: BlocBuilder<AppBarCubit, double>(
-          builder: (context, scrollOffset) {
-            return CustomAppBar(
-              scrollOffset: scrollOffset,
-            );
-          },
-        ),
-      ),
+      appBar: Responsive.isDesktop(context)
+          ? null
+          : PreferredSize(
+              preferredSize: Size(screenSize.width, 50.0),
+              // todo -- CustomAppBar, Not AppBar
+              child: BlocBuilder<AppBarCubit, double>(
+                builder: (context, scrollOffset) {
+                  return CustomAppBar(
+                    scrollOffset: scrollOffset,
+                  );
+                },
+              ),
+            ),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [

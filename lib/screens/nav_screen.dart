@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_netflix_responsive_ui/cubits/app_bar/app_bar_cubit.dart';
-import 'package:flutter_netflix_responsive_ui/screens/home_screen.dart';
+import 'package:flutter_netflix_responsive_ui/screens/screens.dart';
 import 'package:flutter_netflix_responsive_ui/widgets/widgets.dart';
 
 class NavScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NavScreenState extends State<NavScreen> {
 
       key: PageStorageKey('homeScreen'),
     ),
-    Scaffold(),
+    SearchScreen(),
     Scaffold(),
     Scaffold(),
     Scaffold(),
@@ -36,13 +36,24 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: Responsive.isDesktop(context)
+          ? PreferredSize(
+              preferredSize: Size(width, 50.0),
+              // todo -- CustomAppBar, Not AppBar
+              child: CustomAppBar(
+                scrollOffset: 0,
+                onPressed: (int value) => setState(() => _currentIndex = value),
+              ))
+          : null,
       body: BlocProvider<AppBarCubit>(
-          // todo -- Note -- (_) makes passed context private
-          // todo -- b/c it won't be used
+        // todo -- Note -- (_) makes passed context private
+        // todo -- b/c it won't be used
 
-          create: (_) => AppBarCubit(),
-          child: _screens[_currentIndex]),
+        create: (_) => AppBarCubit(),
+        child: _screens[_currentIndex],
+      ),
       bottomNavigationBar: Responsive.isDesktop(context)
           ? null
           : BottomNavigationBar(
