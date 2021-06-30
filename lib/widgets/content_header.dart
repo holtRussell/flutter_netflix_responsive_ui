@@ -120,6 +120,7 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () => _videoController.value.isPlaying
           ? _videoController.pause()
@@ -174,19 +175,24 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
                 SizedBox(
                   height: 15.0,
                 ),
-                Text(
-                  widget.featuredContent.description,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.0,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black,
-                        offset: Offset(2.0, 4.0),
-                        blurRadius: 6.0,
-                      ),
-                    ],
+                Container(
+                  width: width / 2,
+                  child: Text(
+                    widget.featuredContent.description,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          offset: Offset(2.0, 4.0),
+                          blurRadius: 6.0,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -195,6 +201,7 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
                 Row(
                   children: [
                     PlayButton(
+                      text: 'Play',
                       onTap: () => print('Play'),
                     ),
                     const SizedBox(

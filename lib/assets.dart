@@ -1,15 +1,34 @@
+import 'package:flutter/cupertino.dart';
+
 class Assets {
   static const String _images = 'assets/images/';
+  static const String _avatar = 'assets/previews/avatar/';
+  static const String _sintel = 'assets/previews/sintel/';
 
   static const String netflixLogo0 = '${_images}netflix_logo0.png';
   static const String netflixLogo1 = '${_images}netflix_logo1.png';
 
   static const String sintel = '${_images}sintel.jpg';
   static const String sintelTitle = '${_images}sintel_title.png';
-  static const String sintelVideoUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4';
+  static const String sintelVideoUrl =
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4';
+  static const List<String> sintelPreview = [
+    '${_sintel}preview1.jpg',
+    '${_sintel}preview2.jpg',
+    '${_sintel}preview3.jpg',
+    '${_sintel}preview4.jpg',
+  ];
 
   static const String atla = '${_images}atla.jpg';
   static const String atlaTitle = '${_images}atla_title.png';
+  static const String atlaVideoUrl =
+      'https://www.youtube.com/watch?v=Rz7EsOua-D4';
+  static const List<String> atlaPreview = [
+    '${_avatar}preview1.jpg',
+    '${_avatar}preview2.jpg',
+    '${_avatar}preview3.jpg',
+    '${_avatar}preview4.jpg',
+  ];
 
   static const String blackMirror = '${_images}black_mirror.jpg';
   static const String blackMirrorTitle = '${_images}black_mirror_title.png';

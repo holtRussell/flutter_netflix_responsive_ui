@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_netflix_responsive_ui/cubits/app_bar/app_bar_cubit.dart';
+import 'package:flutter_netflix_responsive_ui/data/data.dart';
 import 'package:flutter_netflix_responsive_ui/screens/screens.dart';
 import 'package:flutter_netflix_responsive_ui/widgets/widgets.dart';
 
@@ -19,7 +20,9 @@ class _NavScreenState extends State<NavScreen> {
       key: PageStorageKey('homeScreen'),
     ),
     SearchScreen(),
-    Scaffold(),
+    ShowScreen(
+      content: sintelContent,
+    ),
     Scaffold(),
     Scaffold(),
   ];
@@ -27,16 +30,23 @@ class _NavScreenState extends State<NavScreen> {
   final Map<String, IconData> _icons = const {
     'Home': Icons.home,
     'Search': Icons.search,
-    'Coming Soon': Icons.queue_play_next,
+    'Featured': Icons.queue_play_next,
     'Downloads': Icons.file_download,
     'More': Icons.menu,
   };
 
-  int _currentIndex = 0;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: Responsive.isDesktop(context)
           ? PreferredSize(
@@ -44,7 +54,7 @@ class _NavScreenState extends State<NavScreen> {
               // todo -- CustomAppBar, Not AppBar
               child: CustomAppBar(
                 scrollOffset: 0,
-                onPressed: (int value) => setState(() => _currentIndex = value),
+                onPressed: (value) => setState(() => currentIndex = value),
               ))
           : null,
       body: BlocProvider<AppBarCubit>(
@@ -52,7 +62,7 @@ class _NavScreenState extends State<NavScreen> {
         // todo -- b/c it won't be used
 
         create: (_) => AppBarCubit(),
-        child: _screens[_currentIndex],
+        child: _screens[currentIndex],
       ),
       bottomNavigationBar: Responsive.isDesktop(context)
           ? null
@@ -74,12 +84,12 @@ class _NavScreenState extends State<NavScreen> {
                   )
                   .values
                   .toList(),
-              currentIndex: _currentIndex,
+              currentIndex: currentIndex,
               selectedItemColor: Colors.white,
               selectedFontSize: 11.0,
               unselectedItemColor: Colors.grey,
               unselectedFontSize: 11.0,
-              onTap: (index) => setState(() => _currentIndex = index),
+              onTap: (index) => setState(() => currentIndex = index),
             ),
     );
   }

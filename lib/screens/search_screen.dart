@@ -18,9 +18,10 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Responsive.isDesktop(context)
           ? SearchScreenDesktop()
-          : SearchScreenMobile(),
+          : SingleChildScrollView(child: SearchScreenMobile()),
     );
   }
 }
@@ -109,7 +110,9 @@ class _SearchScreenMobileState extends State<SearchScreenMobile> {
                   child: ListView.builder(
                     itemCount: searchResults.length == 1
                         ? 1
-                        : (searchResults.length ~/ 2),
+                        : searchResults.length % 2 == 0
+                            ? (searchResults.length ~/ 2)
+                            : (searchResults.length ~/ 2) + 1,
                     itemBuilder: (BuildContext context, int index) => Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 10.0),
@@ -217,38 +220,40 @@ class _SearchScreenDesktopState extends State<SearchScreenDesktop> {
                     ),
                   ),
                 ),
+                Expanded(
+                  child: Container(
+                    child: inputString == '' || searchResults == null
+                        ? Text('Enter Something Dummy!')
+                        : ListView.builder(
+                            itemCount: searchResults.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TextButton(
+                                onPressed: () =>
+                                    print(searchResults[index].name),
+                                child: Text(searchResults[index].name),
+                              );
+                            }),
+                  ),
+                ),
               ],
             ),
           ),
           inputString == '' || searchResults == null
               ? Text('Enter Something Dummy!')
-              : Expanded(
-                  child: Container(
-                    height: height,
-                    width: 2 * width / 3,
-                    decoration: BoxDecoration(color: Colors.black26),
-                    child: ListView.builder(
-                      itemCount: searchResults.length == 1
-                          ? 1
-                          : (searchResults.length ~/ 2),
-                      itemBuilder: (BuildContext context, int index) =>
-                          Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            VideoBox(
-                              content: searchResults[(index) * 2],
-                            ),
-                            searchResults.length <= index * 2 + 1
-                                ? SizedBox(
-                                    width: 130.0,
-                                  )
-                                : VideoBox(
-                                    content: searchResults[(index * 2 + 1)],
-                                  ),
-                          ],
+              : Container(
+                  height: height / 2,
+                  width: 2 * width / 3,
+                  decoration: BoxDecoration(color: Colors.black26),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: searchResults.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        LimitedBox(
+                      maxHeight: height / 2,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 50.0),
+                        child: VideoBox(
+                          content: searchResults[(index)],
                         ),
                       ),
                     ),

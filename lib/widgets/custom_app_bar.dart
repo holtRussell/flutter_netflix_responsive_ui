@@ -5,7 +5,7 @@ import 'package:flutter_netflix_responsive_ui/assets.dart';
 class CustomAppBar extends StatefulWidget {
   // Todo -- Learn THis trick -- ScrollOffset Opacity
   final double scrollOffset;
-  final Function onPressed;
+  final Function(int) onPressed;
   const CustomAppBar({Key key, this.scrollOffset, this.onPressed})
       : super(key: key);
 
@@ -162,12 +162,13 @@ class CustomAppBarDesktop extends StatelessWidget {
 class _AppBarButton extends StatelessWidget {
   String input;
   final Function onTap;
-  _AppBarButton({this.input, this.onTap});
+  final Function(int) callback;
+  _AppBarButton({this.input, this.callback, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onTap,
+      onPressed: () => callback == null ? onTap : callback,
       child: Text(
         '$input',
         style: TextStyle(

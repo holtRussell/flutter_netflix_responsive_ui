@@ -7,8 +7,10 @@ final Content sintelContent = Content(
   imageUrl: Assets.sintel,
   titleImageUrl: Assets.sintelTitle,
   videoUrl: Assets.sintelVideoUrl,
+  isMovie: true,
+  previews: Assets.sintelPreview,
   description:
-      'A lonely young woman, Sintel, helps and befriends a dragon,\nwhom she calls Scales. But when he is kidnapped by an adult\ndragon, Sintel decides to embark on a dangerous quest to find\nher lost friend Scales.',
+      'A lonely young woman, Sintel, helps and befriends a dragon, whom she calls Scales. But when he is kidnapped by an adult dragon, Sintel decides to embark on a dangerous quest to find her lost friend Scales.',
 );
 
 final List<Content> previews = const [
@@ -17,6 +19,9 @@ final List<Content> previews = const [
     imageUrl: Assets.atla,
     color: Colors.orange,
     titleImageUrl: Assets.atlaTitle,
+    videoUrl: Assets.atlaVideoUrl,
+    previews: Assets.atlaPreview,
+    isMovie: false,
   ),
   Content(
     name: 'The Crown',
@@ -45,8 +50,10 @@ final List<Content> previews = const [
   Content(
     name: 'Avatar The Last Airbender',
     imageUrl: Assets.atla,
-    color: Colors.orange,
     titleImageUrl: Assets.atlaTitle,
+    color: Colors.orange,
+    previews: Assets.atlaPreview,
+    videoUrl: Assets.atlaVideoUrl,
   ),
   Content(
     name: 'The Crown',
@@ -119,6 +126,7 @@ final List<Content> allShows = const [
     imageUrl: Assets.sintel,
     titleImageUrl: Assets.sintelTitle,
     videoUrl: Assets.sintelVideoUrl,
+    previews: Assets.sintelPreview,
     description:
         'A lonely young woman, Sintel, helps and befriends a dragon,\nwhom she calls Scales. But when he is kidnapped by an adult\ndragon, Sintel decides to embark on a dangerous quest to find\nher lost friend Scales.',
   ),
@@ -127,6 +135,8 @@ final List<Content> allShows = const [
     imageUrl: Assets.atla,
     color: Colors.orange,
     titleImageUrl: Assets.atlaTitle,
+    previews: Assets.atlaPreview,
+    videoUrl: Assets.atlaVideoUrl,
   ),
   Content(
     name: 'The Crown',

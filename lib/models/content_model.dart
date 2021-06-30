@@ -8,6 +8,8 @@ class Content {
   final String videoUrl;
   final String description;
   final Color color;
+  final bool isMovie;
+  final List<String> previews;
 
   const Content({
     @required this.name,
@@ -16,5 +18,7 @@ class Content {
     this.videoUrl,
     this.description,
     this.color,
+    this.isMovie,
+    this.previews,
   });
 }
