@@ -6,7 +6,9 @@ class CustomAppBar extends StatefulWidget {
   // Todo -- Learn THis trick -- ScrollOffset Opacity
   final double scrollOffset;
   final Function(int) onPressed;
-  const CustomAppBar({Key key, this.scrollOffset, this.onPressed})
+  final VoidCallback callback;
+  const CustomAppBar(
+      {Key key, this.scrollOffset, this.onPressed, this.callback})
       : super(key: key);
 
   @override
@@ -25,7 +27,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ),
       child: Responsive.isDesktop(context)
-          ? CustomAppBarDesktop()
+          ? CustomAppBarDesktop(
+              onPressed: widget.onPressed,
+            )
           : CustomAppBarMobile(),
     );
   }
@@ -75,7 +79,8 @@ class CustomAppBarMobile extends StatelessWidget {
 
 class CustomAppBarDesktop extends StatelessWidget {
   final Function(int) onPressed;
-  const CustomAppBarDesktop({Key key, @required this.onPressed})
+  final VoidCallback callback;
+  const CustomAppBarDesktop({Key key, @required this.onPressed, this.callback})
       : super(key: key);
 
   @override
@@ -92,7 +97,7 @@ class CustomAppBarDesktop extends StatelessWidget {
             children: [
               _AppBarButton(
                 input: 'Home',
-                onTap: () => print('Home'),
+                onPressed: onPressed,
               ),
               _AppBarButton(
                 input: 'TV Shows',
@@ -160,15 +165,15 @@ class CustomAppBarDesktop extends StatelessWidget {
 }
 
 class _AppBarButton extends StatelessWidget {
-  String input;
+  final String input;
   final Function onTap;
-  final Function(int) callback;
-  _AppBarButton({this.input, this.callback, this.onTap});
+  final Function(int) onPressed;
+  _AppBarButton({this.input, this.onPressed, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => callback == null ? onTap : callback,
+      onPressed: () => onPressed(0),
       child: Text(
         '$input',
         style: TextStyle(

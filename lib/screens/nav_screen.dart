@@ -21,9 +21,11 @@ class _NavScreenState extends State<NavScreen> {
     ),
     SearchScreen(),
     ShowScreen(
-      content: sintelContent,
+      content: allShows[1],
     ),
-    Scaffold(),
+    PlayVideoScreen(
+      videoURL: allShows[0].videoUrl,
+    ),
     Scaffold(),
   ];
 
@@ -54,7 +56,10 @@ class _NavScreenState extends State<NavScreen> {
               // todo -- CustomAppBar, Not AppBar
               child: CustomAppBar(
                 scrollOffset: 0,
-                onPressed: (value) => setState(() => currentIndex = value),
+                onPressed: (value) {
+                  //print('Did it :)');
+                  setState(() => currentIndex = value);
+                },
               ))
           : null,
       body: BlocProvider<AppBarCubit>(

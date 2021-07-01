@@ -186,6 +186,9 @@ class _SearchScreenDesktopState extends State<SearchScreenDesktop> {
             width: width / 3,
             child: Column(
               children: [
+                SizedBox(
+                  height: 30.0,
+                ),
                 Container(
                   width: width - 50,
                   height: 50.0,

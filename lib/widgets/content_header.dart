@@ -129,10 +129,10 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
         alignment: Alignment.bottomLeft,
         children: [
           AspectRatio(
-            aspectRatio: _videoController.value.initialized
+            aspectRatio: _videoController.value.isInitialized
                 ? _videoController.value.aspectRatio
                 : 2.344,
-            child: _videoController.value.initialized
+            child: _videoController.value.isInitialized
                 ? VideoPlayer(_videoController)
                 : Image.asset(
                     widget.featuredContent.imageUrl,
@@ -144,7 +144,7 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
             left: 0,
             right: 0,
             child: AspectRatio(
-              aspectRatio: _videoController.value.initialized
+              aspectRatio: _videoController.value.isInitialized
                   ? _videoController.value.aspectRatio
                   : 2.344,
               child: Container(
@@ -229,7 +229,7 @@ class __ContentHeaderDesktopState extends State<_ContentHeaderDesktop> {
                     const SizedBox(
                       width: 20.0,
                     ),
-                    if (_videoController.value.initialized)
+                    if (_videoController.value.isInitialized)
                       IconButton(
                         onPressed: () => setState(
                           () {

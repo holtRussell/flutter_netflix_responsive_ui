@@ -15,14 +15,15 @@ final Content sintelContent = Content(
 
 final List<Content> previews = const [
   Content(
-    name: 'Avatar The Last Airbender',
-    imageUrl: Assets.atla,
-    color: Colors.orange,
-    titleImageUrl: Assets.atlaTitle,
-    videoUrl: Assets.atlaVideoUrl,
-    previews: Assets.atlaPreview,
-    isMovie: false,
-  ),
+      name: 'Avatar The Last Airbender',
+      imageUrl: Assets.atla,
+      color: Colors.orange,
+      titleImageUrl: Assets.atlaTitle,
+      videoUrl: Assets.atlaVideoUrl,
+      previews: Assets.atlaPreview,
+      isMovie: false,
+      description:
+          'Water, Fire, Earth, Air. That\'s all you need to know baby!'),
   Content(
     name: 'The Crown',
     imageUrl: Assets.crown,
@@ -131,13 +132,15 @@ final List<Content> allShows = const [
         'A lonely young woman, Sintel, helps and befriends a dragon,\nwhom she calls Scales. But when he is kidnapped by an adult\ndragon, Sintel decides to embark on a dangerous quest to find\nher lost friend Scales.',
   ),
   Content(
-    name: 'Avatar The Last Airbender',
-    imageUrl: Assets.atla,
-    color: Colors.orange,
-    titleImageUrl: Assets.atlaTitle,
-    previews: Assets.atlaPreview,
-    videoUrl: Assets.atlaVideoUrl,
-  ),
+      name: 'Avatar The Last Airbender',
+      imageUrl: Assets.atla,
+      color: Colors.orange,
+      titleImageUrl: Assets.atlaTitle,
+      videoUrl: Assets.atlaVideoUrl,
+      previews: Assets.atlaPreview,
+      isMovie: false,
+      description:
+          'Water, Fire, Earth, Air. That\'s all you need to know babeeeeeeeeee! Avatar bout ta dunk on some fools!'),
   Content(
     name: 'The Crown',
     imageUrl: Assets.crown,
